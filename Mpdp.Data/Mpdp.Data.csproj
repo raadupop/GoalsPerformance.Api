@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5257BBAF-CD83-4B31-A639-2162E1FBF484}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mpdp.Data</RootNamespace>
+    <AssemblyName>Mpdp.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MockData, Version=0.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MockData.0.0.6\lib\net40\MockData.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\EntityBaseConfiguration.cs" />
+    <Compile Include="Configuration\GoalConfiguration.cs" />
+    <Compile Include="Configuration\NoteConfiguration.cs" />
+    <Compile Include="Configuration\ObjectiveConfiguration.cs" />
+    <Compile Include="Configuration\RoleConfiguration.cs" />
+    <Compile Include="Configuration\UserConfiguration.cs" />
+    <Compile Include="Configuration\UserProfileConfiguration.cs" />
+    <Compile Include="Configuration\UserRoleConfiguration.cs" />
+    <Compile Include="Configuration\WorkedLogConfiguration.cs" />
+    <Compile Include="Extension\UserExtension.cs" />
+    <Compile Include="Infrastructure\DbFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
+    <Compile Include="Infrastructure\IDbFactory.cs" />
+    <Compile Include="Infrastructure\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="Migrations\201605071621561_initial.cs" />
+    <Compile Include="Migrations\201605071621561_initial.Designer.cs">
+      <DependentUpon>201605071621561_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605260932457_EstimationUpdate.cs" />
+    <Compile Include="Migrations\201605260932457_EstimationUpdate.Designer.cs">
+      <DependentUpon>201605260932457_EstimationUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605261959499_UserProfileUpdate.cs" />
+    <Compile Include="Migrations\201605261959499_UserProfileUpdate.Designer.cs">
+      <DependentUpon>201605261959499_UserProfileUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605271010185_UserProfileUpdate2.cs" />
+    <Compile Include="Migrations\201605271010185_UserProfileUpdate2.Designer.cs">
+      <DependentUpon>201605271010185_UserProfileUpdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605271220332_UserProfileUpdateOTO.cs" />
+    <Compile Include="Migrations\201605271220332_UserProfileUpdateOTO.Designer.cs">
+      <DependentUpon>201605271220332_UserProfileUpdateOTO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605271401206_GoalAddUserProfile.cs" />
+    <Compile Include="Migrations\201605271401206_GoalAddUserProfile.Designer.cs">
+      <DependentUpon>201605271401206_GoalAddUserProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605272321186_EstimationTicks.cs" />
+    <Compile Include="Migrations\201605272321186_EstimationTicks.Designer.cs">
+      <DependentUpon>201605272321186_EstimationTicks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605291033151_EstimationTicksForObjective.cs" />
+    <Compile Include="Migrations\201605291033151_EstimationTicksForObjective.Designer.cs">
+      <DependentUpon>201605291033151_EstimationTicksForObjective.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605291537515_EstimationTypo.cs" />
+    <Compile Include="Migrations\201605291537515_EstimationTypo.Designer.cs">
+      <DependentUpon>201605291537515_EstimationTypo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605291544063_EstimationTypo2.cs" />
+    <Compile Include="Migrations\201605291544063_EstimationTypo2.Designer.cs">
+      <DependentUpon>201605291544063_EstimationTypo2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606012351174_typo.cs" />
+    <Compile Include="Migrations\201606012351174_typo.Designer.cs">
+      <DependentUpon>201606012351174_typo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606031946224_Notes, user, userProfile refactoring on the dependency.cs" />
+    <Compile Include="Migrations\201606031946224_Notes, user, userProfile refactoring on the dependency.Designer.cs">
+      <DependentUpon>201606031946224_Notes, user, userProfile refactoring on the dependency.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606051326476_WorkedLogs changes.cs" />
+    <Compile Include="Migrations\201606051326476_WorkedLogs changes.Designer.cs">
+      <DependentUpon>201606051326476_WorkedLogs changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608062254194_Property rename.cs" />
+    <Compile Include="Migrations\201608062254194_Property rename.Designer.cs">
+      <DependentUpon>201608062254194_Property rename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608081820101_Adding TimeLogged.cs" />
+    <Compile Include="Migrations\201608081820101_Adding TimeLogged.Designer.cs">
+      <DependentUpon>201608081820101_Adding TimeLogged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="MpdpContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\EntityBaseRepository.cs" />
+    <Compile Include="Repositories\IEntityBaseRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mpdp.Entities\Mpdp.Entities.csproj">
+      <Project>{867f5160-44d6-4549-b8ac-000d78e5e5cf}</Project>
+      <Name>Mpdp.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="it\MockData.resources.dll" />
+    <Content Include="uk\MockData.resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605071621561_initial.resx">
+      <DependentUpon>201605071621561_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605260932457_EstimationUpdate.resx">
+      <DependentUpon>201605260932457_EstimationUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605261959499_UserProfileUpdate.resx">
+      <DependentUpon>201605261959499_UserProfileUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605271010185_UserProfileUpdate2.resx">
+      <DependentUpon>201605271010185_UserProfileUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605271220332_UserProfileUpdateOTO.resx">
+      <DependentUpon>201605271220332_UserProfileUpdateOTO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605271401206_GoalAddUserProfile.resx">
+      <DependentUpon>201605271401206_GoalAddUserProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605272321186_EstimationTicks.resx">
+      <DependentUpon>201605272321186_EstimationTicks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605291033151_EstimationTicksForObjective.resx">
+      <DependentUpon>201605291033151_EstimationTicksForObjective.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605291537515_EstimationTypo.resx">
+      <DependentUpon>201605291537515_EstimationTypo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605291544063_EstimationTypo2.resx">
+      <DependentUpon>201605291544063_EstimationTypo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606012351174_typo.resx">
+      <DependentUpon>201606012351174_typo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606031946224_Notes, user, userProfile refactoring on the dependency.resx">
+      <DependentUpon>201606031946224_Notes, user, userProfile refactoring on the dependency.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606051326476_WorkedLogs changes.resx">
+      <DependentUpon>201606051326476_WorkedLogs changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608062254194_Property rename.resx">
+      <DependentUpon>201608062254194_Property rename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608081820101_Adding TimeLogged.resx">
+      <DependentUpon>201608081820101_Adding TimeLogged.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
