@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Mpdp.Entities;
 using Mpdp.Services.Abstract;
-using static System.Decimal;
 
 namespace Mpdp.Services
 {
@@ -17,14 +16,14 @@ namespace Mpdp.Services
       var originarEstimates = goal.Estimation.Ticks;
       var totalTimeWorked = goal.TimeLogged.Ticks;
 
-      var efficiency = Divide(originarEstimates, totalTimeWorked)*100;
+      var efficiency = decimal.Divide(originarEstimates, totalTimeWorked) * 100;
       var overTime = totalTimeWorked - originarEstimates;
 
       return new GoalPerformance()
       {
-        Efficiency = (int) efficiency,
+        Efficiency = (int)efficiency,
         Month = month,
-        WorkedHours = (int) goal.TimeLogged.TotalHours,
+        WorkedHours = (int)goal.TimeLogged.TotalHours,
         OverTime = TimeSpan.FromTicks(overTime)
       };
     }
@@ -51,7 +50,8 @@ namespace Mpdp.Services
             averageGoalsByMonthPerformance.WorkedHours += goalEfficiency.WorkedHours;
           }
         }
-        averageGoalsByMonthPerformance.Efficiency = (numberOfGoals > 0) ? (int) Divide(averageGoalsByMonthPerformance.Efficiency, numberOfGoals) : 0;
+
+        averageGoalsByMonthPerformance.Efficiency = (numberOfGoals > 0) ? (int)decimal.Divide(averageGoalsByMonthPerformance.Efficiency, numberOfGoals) : 0;
         averageGoalsByMonthPerformance.OverTime = (averageGoalsByMonthPerformance.OverTime < TimeSpan.Zero) ? TimeSpan.Zero : averageGoalsByMonthPerformance.OverTime;
         goalsPerformanceByMonth.Add(averageGoalsByMonthPerformance);
       }
@@ -61,7 +61,7 @@ namespace Mpdp.Services
 
     public GoalsStatistics GetGoalsStatistics(List<Goal> goals)
     {
-      var statistics = new GoalsStatistics() {GoalsCount = goals.Count};
+      var statistics = new GoalsStatistics() { GoalsCount = goals.Count };
 
       foreach (var goal in goals)
       {
