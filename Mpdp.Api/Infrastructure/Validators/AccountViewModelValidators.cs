@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using FluentValidation;
+﻿using FluentValidation;
 using Mpdp.Api.Models;
 
 namespace Mpdp.Api.Infrastructure.Validators

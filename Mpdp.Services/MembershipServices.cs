@@ -22,8 +22,7 @@ namespace Mpdp.Services
     private readonly IUnitOfWork _unitOfWork;
     #endregion
 
-    public MembershipServices(IEntityBaseRepository<User> userRepository, IEntityBaseRepository<Role> roleRepository,
-       IEntityBaseRepository<UserRole> userRoleRepository, IEncryptionServices encryptionServices, IUnitOfWork unitOfWork)
+    public MembershipServices(IEntityBaseRepository<User> userRepository, IEntityBaseRepository<Role> roleRepository, IEntityBaseRepository<UserRole> userRoleRepository, IEncryptionServices encryptionServices, IUnitOfWork unitOfWork)
     {
       _userRepository = userRepository;
       _roleRepository = roleRepository;
@@ -76,8 +75,9 @@ namespace Mpdp.Services
 
       _userRepository.Add(user);
       _unitOfWork.Commit();
-
-      if (roles != null || roles.Length > 0)
+      
+      // TODO: Do not store users without roles
+      if (roles != null)
       {
         foreach (var role in roles)
         {
@@ -101,7 +101,7 @@ namespace Mpdp.Services
 
         _unitOfWork.Commit();
 
-        return true;;
+        return true;
       }
 
       return false;
@@ -109,11 +109,14 @@ namespace Mpdp.Services
 
     public string ResetPassword(string email)
     {
-      User existingUser = _userRepository.FindBy(u => u.Email.Equals(email)).FirstOrDefault();
+      var existingUser = _userRepository.FindBy(u => u.Email.Equals(email)).FirstOrDefault();
 
-      //todo: this should be throw an exception
-      if (existingUser == null) return null;
-
+      // TODO: this should be throw an exception
+      if (existingUser == null)
+      {
+        return null;
+      }
+     
       var newPassword = Membership.GeneratePassword(8, 2);
       existingUser.Salt = _encryptionServices.CreateSalt();
       existingUser.HashedPassword = _encryptionServices.EncryptPassword(newPassword, existingUser.Salt);
@@ -130,22 +133,22 @@ namespace Mpdp.Services
 
     public List<Role> GetUserRoles(string username)
     {
-      List<Role> _roles = new List<Role>();
+      var roles = new List<Role>();
 
       var existingUser = _userRepository.GetSingleByUsername(username);
 
       if (existingUser != null)
       {
-        _roles.AddRange(existingUser.UserRoles.Select(role => role.Role));
+        roles.AddRange(existingUser.UserRoles.Select(role => role.Role));
       }
 
-      return _roles.Distinct().ToList();
+      return roles.Distinct().ToList();
     }
     #endregion
 
     #region Helper Method
 
-    private void AddUserToRole(User user, int roleId)
+    private void AddUserToRole(IEntityBase user, int roleId)
     {
       var role = _roleRepository.GetSingle(roleId);
 
@@ -169,13 +172,9 @@ namespace Mpdp.Services
 
     private bool IsUserValid(User user, string password)
     {
-      if (IsPasswordValid(user, password))
-      {
-        return true;
-      }
-
-      return false;
+      return IsPasswordValid(user, password);
     }
+
     #endregion
   }
 }

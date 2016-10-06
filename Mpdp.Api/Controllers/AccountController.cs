@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
-using System.Text;
 using System.Web.Http;
 using Mpdp.Api.Models;
 using Mpdp.Data.Infrastructure;
@@ -39,6 +38,7 @@ namespace Mpdp.Api.Controllers
           if (userContext.User != null)
           {
             var userProfile = _userProfileRepository.FindBy(u => u.UserId == userContext.User.Id).FirstOrDefault();
+            
             if (userProfile != null)
             {
               response = request.CreateResponse(HttpStatusCode.OK, new { success = true, userProfileId = userProfile.Id });
@@ -54,7 +54,9 @@ namespace Mpdp.Api.Controllers
           }
         }
         else
+        {
           response = request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
+        }
 
         return response;
       });
@@ -65,8 +67,8 @@ namespace Mpdp.Api.Controllers
     public HttpResponseMessage Register(HttpRequestMessage request, RegistrationViewModel user)
     {
       return CreateHttpResponse(request, () =>
-     {
-       HttpResponseMessage response;
+      {
+        HttpResponseMessage response;
 
        if (!ModelState.IsValid)
        {
@@ -74,7 +76,6 @@ namespace Mpdp.Api.Controllers
        }
        else
        {
-
          User newUser = _membershipServices.CreateUser(user.Username, user.Email, user.Password, new[] { 2 });
 
          if (newUser != null)
@@ -93,7 +94,6 @@ namespace Mpdp.Api.Controllers
 
        return response;
      });
-
     }
 
     [HttpPost]
@@ -128,10 +128,10 @@ namespace Mpdp.Api.Controllers
       {
         HttpResponseMessage response;
 
-        //todo: maybe creation an extension to validate the email
+        // todo: maybe creation an extension to validate the email
         if (email != null)
         {
-          //todo: rollback in case that the e-mail was not sent. Implementation with using statement to be disposable 
+          // todo: rollback in case that the e-mail was not sent. Implementation with using statement to be disposable 
           var newPassword = _membershipServices.ResetPassword(email);
 
           if (newPassword != null)
@@ -140,7 +140,7 @@ namespace Mpdp.Api.Controllers
             var toAddress = new MailAddress(email);
             const string fromPassword = "password1@";
             const string subject = "Password recovery";
-            string body = "The new password is: " + newPassword;
+            var body = "The new password is: " + newPassword;
 
             var smtp = new SmtpClient
             {
@@ -175,6 +175,5 @@ namespace Mpdp.Api.Controllers
         return response;
       });
     }
-
   }
 }
