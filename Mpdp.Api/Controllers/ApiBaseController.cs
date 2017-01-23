@@ -13,18 +13,18 @@ namespace Mpdp.Api.Controllers
   [EnableCors(origins: "*", headers: "*", methods: "*")]
   public class ApiBaseController : ApiController
   {
-    protected readonly IEntityBaseRepository<Error> _errorsRepository;
-    protected readonly IUnitOfWork _unitOfWork;
+    protected readonly IEntityBaseRepository<Error> ErrorsRepository;
+    protected readonly IUnitOfWork UnitOfWork;
 
     public ApiBaseController(IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork)
     {
-      _errorsRepository = errorsRepository;
-      _unitOfWork = unitOfWork;
+      ErrorsRepository = errorsRepository;
+      UnitOfWork = unitOfWork;
     }
 
     protected HttpResponseMessage CreateHttpResponse(HttpRequestMessage request, Func<HttpResponseMessage> function)
     {
-      HttpResponseMessage response = null;
+      HttpResponseMessage response;
 
       try
       {
@@ -48,17 +48,19 @@ namespace Mpdp.Api.Controllers
     {
       try
       {
-        Error _error = new Error()
+        var error = new Error()
         {
           Message = ex.Message,
           StackTrace = ex.StackTrace,
           DateCreated = DateTime.Now
         };
 
-        _errorsRepository.Add(_error);
-        _unitOfWork.Commit();
+        ErrorsRepository.Add(error);
+        UnitOfWork.Commit();
       }
-      catch { }
+      catch
+      {
+      }
     }
   }
 }

@@ -9,6 +9,7 @@ namespace Mpdp.Api
     {
       // Configure Autofac
       AutofacWebapiConfig.Initialize(GlobalConfiguration.Configuration);
+
       // Configure AutoMapper
       AutomapperConfiguration.Configure();
     }

@@ -13,7 +13,7 @@ using Mpdp.Entities;
 
 namespace Mpdp.Api.Controllers
 {
-  //todo: Separate goal feature to the objective 
+// todo: Separate goal feature to the objective 
   public class GoalController : ApiBaseController
   {
     private readonly IEntityBaseRepository<Goal> _goalRepository;
@@ -43,12 +43,12 @@ namespace Mpdp.Api.Controllers
           var newGoal = new Goal();
           newGoal.CreateGoal(goal);
 
-          //Asign goal to a user
+          // Asign goal to a user
           var userProfile = _userProfileRepository.GetSingle(goal.UserProfileId);
           newGoal.UserProfile = userProfile;
 
           _goalRepository.Add(newGoal);
-          _unitOfWork.Commit();
+          UnitOfWork.Commit();
 
           goal = Mapper.Map<Goal, GoalViewModel>(newGoal);
           response = request.CreateResponse(HttpStatusCode.Created, goal);
@@ -78,10 +78,10 @@ namespace Mpdp.Api.Controllers
             _objectiveRepository.Delete(g);
           }
 
-          _unitOfWork.Commit();
+          UnitOfWork.Commit();
 
           _goalRepository.Delete(goalToDelete);
-          _unitOfWork.Commit();
+          UnitOfWork.Commit();
 
           response = request.CreateResponse(HttpStatusCode.OK, "The goal was successfully deleted");
         }
@@ -117,7 +117,7 @@ namespace Mpdp.Api.Controllers
           //    }
           //  }
           _objectiveRepository.Delete(objective);
-          _unitOfWork.Commit();
+          UnitOfWork.Commit();
 
           respones = request.CreateResponse(HttpStatusCode.NoContent, "The objective was successfully deleted");
         }
@@ -224,7 +224,7 @@ namespace Mpdp.Api.Controllers
           goal.UserProfile = userProfile;
 
           _goalRepository.Edit(goal);
-          _unitOfWork.Commit();
+          UnitOfWork.Commit();
 
           GoalViewModel goalUpdated = Mapper.Map<Goal, GoalViewModel>(goal);
           response = request.CreateResponse(HttpStatusCode.Created, goalUpdated);
@@ -274,12 +274,12 @@ namespace Mpdp.Api.Controllers
               newObjective.Goal = goal;
 
               _objectiveRepository.Add(newObjective);
-              _unitOfWork.Commit();
+              UnitOfWork.Commit();
 
               //Update the goal 
               goal.Objectives.Add(newObjective);
               _goalRepository.Edit(goal);
-              _unitOfWork.Commit();
+              UnitOfWork.Commit();
 
               objectiveVm = Mapper.Map<Objective, ObjectiveViewModel>(newObjective);
               response = request.CreateResponse(HttpStatusCode.OK, objectiveVm);
@@ -308,7 +308,7 @@ namespace Mpdp.Api.Controllers
           var objective = Mapper.Map<ObjectiveViewModel, Objective>(objectiveVm);
 
           _objectiveRepository.Edit(objective);
-          _unitOfWork.Commit();
+          UnitOfWork.Commit();
 
           response = request.CreateResponse(HttpStatusCode.OK, "Goal was updated with success");
         }
@@ -336,7 +336,7 @@ namespace Mpdp.Api.Controllers
           goal.RemainingEstimates += time;
 
           _goalRepository.Edit(goal);
-          _unitOfWork.Commit();
+          UnitOfWork.Commit();
 
           respone = reqeuest.CreateResponse(HttpStatusCode.NoContent, "Time was added with success");
         }

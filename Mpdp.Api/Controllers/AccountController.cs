@@ -82,7 +82,7 @@ namespace Mpdp.Api.Controllers
          {
            var userProfile = new UserProfile() { Name = user.Name, User = newUser };
            _userProfileRepository.Add(userProfile);
-           _unitOfWork.Commit();
+           UnitOfWork.Commit();
 
            response = request.CreateResponse(HttpStatusCode.OK, new { success = true });
          }

@@ -13,27 +13,30 @@ namespace Mpdp.Api
     public static void Register(HttpConfiguration config)
     {
       config.EnableCors();
+
       // Web API configuration and services
       config.MessageHandlers.Add(new MpdpAuthHandler());
-      config.Services.Insert(
-            typeof(ModelBinderProvider), 0,
-            new SimpleModelBinderProvider(typeof(TimeSpan), new IsoTimeSpanModelBinder()));
+      config.Services.Insert(typeof(ModelBinderProvider), 0, new SimpleModelBinderProvider(typeof(TimeSpan), new IsoTimeSpanModelBinder()));
+      
       config.Formatters.JsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
 
+      var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+      json.UseDataContractJsonSerializer = true;
+
       // Web API routes
-      //config.MapHttpAttributeRoutes();
+
+      // config.MapHttpAttributeRoutes();
+      config.EnableCors();
 
       config.Routes.MapHttpRoute(
         name: "ActionApi",
-        routeTemplate: "api/{controller}/{action}/{id}",
-        defaults: new { id = RouteParameter.Optional, extension = RouteParameter.Optional }
-      );
+        routeTemplate: "{controller}/{action}/{id}",
+        defaults: new { id = RouteParameter.Optional, extension = RouteParameter.Optional });
 
       config.Routes.MapHttpRoute(
           name: "DefaultApi",
-          routeTemplate: "api/{controller}/{id}",
-          defaults: new { id = RouteParameter.Optional }
-      );
+          routeTemplate: "{controller}/{id}",
+          defaults: new { id = RouteParameter.Optional });
     }
   }
 }

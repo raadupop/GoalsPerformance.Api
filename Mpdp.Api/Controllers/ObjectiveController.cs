@@ -13,8 +13,6 @@ namespace Mpdp.Api.Controllers
     {
       _objectiveRepository = objectiveRepository;
       _goalRepository = goalRepository;
-
     }
-
   }
 }

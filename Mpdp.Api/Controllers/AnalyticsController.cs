@@ -48,7 +48,7 @@ namespace Mpdp.Api.Controllers
         var goals = _goalRepository.All.Where(g => g.DateCreated.Year.Equals(DateTime.Now.Year) && g.UserProfileId == userProfileId).ToList();
         var goalsPerformance = _analyticsServices.GetGoalsPerformanceByMonth(goals);
 
-        IEnumerable<GoalPerformanceViewModel> statisticsViewModel = Mapper.Map<IEnumerable<GoalPerformance>, IEnumerable<GoalPerformanceViewModel>>(goalsPerformance);
+        var statisticsViewModel = Mapper.Map<IEnumerable<GoalPerformance>, IEnumerable<GoalPerformanceViewModel>>(goalsPerformance);
         var response = request.CreateResponse(HttpStatusCode.OK, statisticsViewModel);
 
         return response;

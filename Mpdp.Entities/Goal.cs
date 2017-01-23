@@ -12,16 +12,25 @@ namespace Mpdp.Entities
     }
 
     public int Id { get; set; }
+
     public int UserProfileId { get; set; }
+
     public virtual UserProfile UserProfile { get; set; }
+
     public string Name { get; set; }
+
     public DateTime DateCreated { get; set; }
+
     public string Description { get; set; }
+
     public decimal Progress { get; set; }
 
     public Status GoalStatus { get; set; }
+
     public Int64 EstimationTicks { get; set; }
+
     public Int64 RemainingEstimatesTicks { get; set; }
+
     public Int64 TimeLoggedTicks { get; set; }
 
     public virtual ICollection<Objective> Objectives { get; set; }

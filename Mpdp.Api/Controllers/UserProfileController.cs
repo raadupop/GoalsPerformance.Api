@@ -63,7 +63,7 @@ namespace Mpdp.Api.Controllers
 
           _userProfileRepository.Edit(userProfile);
 
-          _unitOfWork.Commit();
+          UnitOfWork.Commit();
      
           response = request.CreateResponse(HttpStatusCode.OK, new {success = true});
         }
