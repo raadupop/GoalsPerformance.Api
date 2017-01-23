@@ -20,9 +20,6 @@ namespace Mpdp.Api
       
       config.Formatters.JsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
 
-      var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
-      json.UseDataContractJsonSerializer = true;
-
       // Web API routes
 
       // config.MapHttpAttributeRoutes();
